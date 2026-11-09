@@ -1,0 +1,1 @@
+Leggimi prima di iniziare.

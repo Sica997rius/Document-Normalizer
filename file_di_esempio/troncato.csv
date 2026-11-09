@@ -1,0 +1,3 @@
+id,nome,cognome,email,telefono,citta,provincia,regione,cap,via,civico,nazione,azienda,ruolo,reparto,stipendio,valuta,data_assunzione,contratto,orario,sede,responsabile,stato,note,codice
+1,Mario,Rossi,mario.rossi@example.com,3331234567,Bologna,BO,Emilia-Romagna,40100,Via Roma,10,Italia,Acme,Analista,Dati,30000,EUR,2024-03-15,Indeterminato,Full-time,Bologna,Anna Bianchi,Attivo,Nessuna,A001
+2,Anna,Bianchi,anna.bianchi@example.com,3337654321,Roma,RM,Lazio,00100,Via Milano,5,Italia,Acme,Responsabile,Dati,45000,EUR,2020-01-10,Indeterminato,Full-time,Roma,Luca Verdi,Attivo,Nessuna,A002
