@@ -1,5 +1,5 @@
 #  Document normalizer
-   **REPOSITORY GIT HUB:**
+
    No requirement for run 
 
 **Warning:** this program renames and overwrites your original files. 'session.json. does not store the original text, so make a backup first.
