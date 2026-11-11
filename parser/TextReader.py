@@ -1,7 +1,7 @@
 import unicodedata
+from typing import Optional
 
-from Costants import (
-    WORD_REGEX,
+from .Costants import (
     READABLE_CHARS,
     EMOJI_REGEX,
     INVISIBLE_CHARS_REGEX,
@@ -10,16 +10,13 @@ from Costants import (
     EXCERPT_LENGTH,
     UNREADABLE_CHARS_NOTE,
 )
-from DocumentReader import DocumentReader
+from .DocumentReader import DocumentReader
 
 
 class TextReader(DocumentReader):
   """Methods valid for txt and md files"""
 
-  @staticmethod
-  def count_words(text: str) -> int:
-    """The system counts the words in the text"""
-    return len(WORD_REGEX.findall(text))
+  EXTENSIONS = [".txt", ".md"]
 
   @staticmethod
   def has_unreadable_chars(text: str) -> bool:
@@ -48,3 +45,7 @@ class TextReader(DocumentReader):
     if TextReader.has_unreadable_chars(text):
       excerpt = (excerpt + " " + UNREADABLE_CHARS_NOTE).strip()
     return excerpt
+
+  @staticmethod
+  def get_date(text: str, file_name: str) -> Optional[str]: #file_name is used in csv files
+    return TextReader.find_date(text)

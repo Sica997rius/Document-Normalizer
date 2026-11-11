@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from Costants import FILENAME_DATE_PATTERNS, EXTENSIONS, CONTROL_BYTES_REGEX, BINARY_FILE_NOTE
+from .Costants import FILENAME_DATE_PATTERNS, CONTROL_BYTES_REGEX, BINARY_FILE_NOTE, WORD_REGEX
 
 
 class DocumentReader:
@@ -11,9 +11,10 @@ class DocumentReader:
 
   # ---------- folder and file list ----------
   @staticmethod
-  def open_document_list() -> dict[int, Path]:
+  def open_document_list(input_path: Optional[str] = None) -> dict[int, Path]:
     """Recursively explores a directory chosen by the user."""
-    input_path = input("Which folder do you want to analyze? ")
+    if input_path is None:
+      input_path = input("Which folder do you want to analyze? ")
     folder_path = Path(input_path)
     if not folder_path.is_dir():
       print("The given folder does not exist or is not valid.")
@@ -29,37 +30,31 @@ class DocumentReader:
     return document_list
 
   @staticmethod
-  def allowed_extensions(document_list: dict[int, Path]) -> dict[int, tuple[str, str]]:
+  def allowed_extensions(document_list: dict[int, Path], extensions) -> dict[int, tuple[str, str]]:
     """Returns only the files with an allowed extension."""
     return {
       number: (path.name, path.suffix.lower())
       for number, path in document_list.items()
-      if path.suffix.lower() in EXTENSIONS
+      if path.suffix.lower() in extensions
     }
 
   @staticmethod
-  def disallowed_extensions(document_list: dict[int, Path]) -> dict[int, tuple[str, str]]:
+  def disallowed_extensions(document_list: dict[int, Path], extensions) -> dict[int, tuple[str, str]]:
     """Returns the files excluded because of a disallowed extension."""
     return {
       number: (path.name, path.suffix.lower())
       for number, path in document_list.items()
-      if path.suffix.lower() not in EXTENSIONS
+      if path.suffix.lower() not in extensions
     }
 
   @staticmethod
-  def txt_documents(allowed_files: dict[int, tuple[str, str]]) -> dict[int, tuple[str, str]]:
-    """The system defines which files are txt files"""
-    return {number: data for number, data in allowed_files.items() if data[1] == ".txt"}
+  def documents_by_format(allowed_files: dict[int, tuple[str, str]], extension: str) -> dict[int, tuple[str, str]]:
+    return {number: data for number, data in allowed_files.items() if data[1] == extension}
 
   @staticmethod
-  def csv_documents(allowed_files: dict[int, tuple[str, str]]) -> dict[int, tuple[str, str]]:
-    """The system defines which files are csv files"""
-    return {number: data for number, data in allowed_files.items() if data[1] == ".csv"}
-
-  @staticmethod
-  def md_documents(allowed_files: dict[int, tuple[str, str]]) -> dict[int, tuple[str, str]]:
-    """The system defines which files are md files"""
-    return {number: data for number, data in allowed_files.items() if data[1] == ".md"}
+  def count_words(text: str) -> int:
+    """The system counts the words in the text"""
+    return len(WORD_REGEX.findall(text))
 
   @staticmethod
   def valid_dates(text: str) -> list:

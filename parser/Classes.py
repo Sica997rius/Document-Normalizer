@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
-from Costants import SESSION_FILE
+from .Costants import SESSION_FILE
 
 
 @dataclass

@@ -2,9 +2,10 @@ import csv
 import io
 import re
 import unicodedata
+from pathlib import Path
 from typing import Optional
 
-from Costants import (
+from .Costants import (
     EMOJI_REGEX,
     INVISIBLE_CHARS_REGEX,
     MULTIPLE_BLANK_LINES_REGEX,
@@ -12,11 +13,13 @@ from Costants import (
     CSV_DELIMITERS,
     CSV_EXCERPT_MAX_COLUMNS,
 )
-from DocumentReader import DocumentReader
+from .DocumentReader import DocumentReader
 
 
 class CSVReader(DocumentReader):
   """Specialization for CSV files."""
+
+  EXTENSIONS = [".csv"]
 
   @staticmethod
   def normalize_text(text: str) -> str:
@@ -61,6 +64,10 @@ class CSVReader(DocumentReader):
     if len(header) > CSV_EXCERPT_MAX_COLUMNS:
       excerpt += "\n..."
     return excerpt
+
+  @staticmethod
+  def get_date(text: str, file_name: str) -> Optional[str]: #text is used in txt and md files, file_name is used in csv files
+    return CSVReader.find_date_from_title(Path(file_name).stem)
 
   @staticmethod
   def find_date_from_title(stem: str) -> Optional[str]:

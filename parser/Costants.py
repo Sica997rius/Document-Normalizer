@@ -27,10 +27,8 @@ FILENAME_DATE_PATTERNS = [
 ]
 EXCERPT_LENGTH = 60
 BINARY_FILE_NOTE = "BINARY FILE: CONTENT NOT READABLE."
-FILE_NORMALIZED_EMPTY_NOTE = "After normalization, the file is empty."
 UNREADABLE_CHARS_NOTE = "Some characters could not be read or belong to other languages"
 CSV_DELIMITERS = [",", ";", "\t"]
 CSV_EXCERPT_MAX_COLUMNS = 20
-EXTENSIONS = [".txt", ".csv", ".md"]
-SESSION_FILE = Path(__file__).parent / "session.json"  # name of the history file of the sessions
+SESSION_FILE = Path("session.json")  # name of the history file of the sessions
 
